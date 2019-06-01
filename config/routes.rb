@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :courses
+  resources :tags
   resources :answers
   resources :questions
   resources :users

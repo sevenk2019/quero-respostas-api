@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_01_204959) do
+ActiveRecord::Schema.define(version: 2019_06_01_215828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,9 +27,26 @@ ActiveRecord::Schema.define(version: 2019_06_01_204959) do
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
+  create_table "courses", force: :cascade do |t|
+    t.string "name"
+    t.string "area"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "courses_tags", id: false, force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "tag_id", null: false
+    t.index ["course_id", "tag_id"], name: "index_courses_tags_on_course_id_and_tag_id"
+  end
+
+  create_table "courses_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "course_id", null: false
+  end
+
   create_table "questions", force: :cascade do |t|
     t.bigint "user_id"
-    t.integer "tag_id"
     t.string "body"
     t.string "title"
     t.integer "likes_count"
@@ -37,6 +54,23 @@ ActiveRecord::Schema.define(version: 2019_06_01_204959) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
+  create_table "questions_tags", id: false, force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.bigint "tag_id", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.string "parent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "tag_id", null: false
   end
 
   create_table "users", force: :cascade do |t|
