@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  tag_id: 1
+  body: MyString
+  title: MyString
+  likes_count: 1
+  dislikes_count: 1
+  timestamps: 2019-06-01
+
+two:
+  user: two
+  tag_id: 1
+  body: MyString
+  title: MyString
+  likes_count: 1
+  dislikes_count: 1
+  timestamps: 2019-06-01
