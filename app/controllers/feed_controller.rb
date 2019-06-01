@@ -3,9 +3,18 @@ class FeedController < ApplicationController
 
     # GET /feed
     def index
-      @questions = Question.order(created_at: :desc).take(20)
+        @questions = Question
+            .eager_load(:answers)
+            .eager_load(:user)
+            .order(created_at: :desc)
+            .first(20)
 
-      render json: @questions
+        render json: @questions.to_json(
+            include: [
+                :user,
+                :answers => {include: :user}
+            ]
+        )
     end
 
     private
