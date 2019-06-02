@@ -1,5 +1,5 @@
 class FeedController < ApplicationController
-    before_action :require_login, only: :from_user
+    before_action :require_login, only: :following
 
     # GET /feed
     def index
@@ -16,7 +16,6 @@ class FeedController < ApplicationController
         )
         render_feed
     end
-
 
     # GET /feed/course/1
     def by_course
