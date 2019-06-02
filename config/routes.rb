@@ -9,6 +9,7 @@ Rails.application.routes.draw do
             get '/' => :index
             get '/tag/:id' => :by_tag
             get '/course/:id' => :by_course
+            get '/owned/' => :from_user
         end
     end
     post '/login', action: :auth, controller: :login

@@ -1,4 +1,6 @@
 class FeedController < ApplicationController
+    before_action :require_login, only: :from_user
+
     # GET /feed
     def index
         @questions = prepare_questions(Question)
@@ -33,6 +35,12 @@ class FeedController < ApplicationController
                 status: 404
             )
         end
+    end
+
+    #  GET /feed/owned
+    def from_user
+        @questions =
+            prepare_questions(Question.where(user_id: current_user.id))
     end
 
     private
