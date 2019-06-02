@@ -15,5 +15,7 @@ Rails.application.routes.draw do
 
     get '/top_users', action: :top_users, controller: :users
     post '/login', action: :auth, controller: :login
+
+    get '/achievements', action: :index, controller: :achievements
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
