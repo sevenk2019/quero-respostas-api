@@ -53,7 +53,7 @@ class FeedController < ApplicationController
                 .eager_load(:answers)
                 .eager_load(:user)
                 .eager_load(:tags)
-                .order(created_at: :desc)
+                .order('questions.created_at desc, answers.likes_count desc')
                 .first(20)
         end
 
