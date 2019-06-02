@@ -37,7 +37,7 @@ class TagsController < ApplicationController
     skills = current_user.tags.select{ |tag| tag.kind == "skill" }
     user = { user: current_user.as_json.merge({ skills: skills}) }
 
-    render json: skills.to_json(include: user)
+    render json: user
   end
 
   # POST /user_skills
