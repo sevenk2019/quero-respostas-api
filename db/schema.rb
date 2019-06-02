@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_01_215828) do
+ActiveRecord::Schema.define(version: 2019_06_02_002622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,12 @@ ActiveRecord::Schema.define(version: 2019_06_01_215828) do
   create_table "questions_tags", id: false, force: :cascade do |t|
     t.bigint "question_id", null: false
     t.bigint "tag_id", null: false
+  end
+
+  create_table "seed_migration_data_migrations", id: :serial, force: :cascade do |t|
+    t.string "version"
+    t.integer "runtime"
+    t.datetime "migrated_on"
   end
 
   create_table "tags", force: :cascade do |t|
