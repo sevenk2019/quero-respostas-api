@@ -30,7 +30,7 @@ class FeedController < ApplicationController
         else
             render(
                 json:{ error: "Could not find course with id #{id}"},
-                status: 401
+                status: 404
             )
         end
     end
