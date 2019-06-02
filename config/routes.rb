@@ -9,7 +9,7 @@ Rails.application.routes.draw do
             get '/' => :index
             get '/tag/:id' => :by_tag
             get '/course/:id' => :by_course
-            get '/following/' => :following
+            get '/following' => :following
         end
     end
 
