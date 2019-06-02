@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_02_120521) do
+ActiveRecord::Schema.define(version: 2019_06_02_090959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "achievement_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "achievements", force: :cascade do |t|
+    t.boolean "unlocked", default: false
+    t.bigint "achievement_type_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["achievement_type_id"], name: "index_achievements_on_achievement_type_id"
+    t.index ["user_id"], name: "index_achievements_on_user_id"
+  end
 
   create_table "answers", force: :cascade do |t|
     t.bigint "user_id"

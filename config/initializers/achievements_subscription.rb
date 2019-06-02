@@ -1,0 +1,2 @@
+QuestionsController.subscribe(AchievementsRegister.new)
+AnswersController.subscribe(AchievementsRegister.new)
