@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_02_091037) do
+ActiveRecord::Schema.define(version: 2019_06_02_120521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,8 +87,8 @@ ActiveRecord::Schema.define(version: 2019_06_02_091037) do
     t.string "university"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "quero_bolsa_user"
-    t.integer "points"
+    t.boolean "quero_bolsa_user", default: false
+    t.integer "points", default: 0
   end
 
   add_foreign_key "answers", "questions"
