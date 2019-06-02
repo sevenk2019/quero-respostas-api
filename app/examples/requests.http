@@ -1,0 +1,10 @@
+POST http://localhost:3000/login HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoxfQ.G89r68d8zRRGj4-WN0rM_h-v9JOQ5MHkF28ycqwqogg
+
+{
+    "user": {
+        "email": "ano@nymo.us",
+        "password": "253d83e302bb419e61485f40d3fd2bd148e63f2a06e7438b80d2fa3ed990d04e"
+    }
+}

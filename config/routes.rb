@@ -10,5 +10,6 @@ Rails.application.routes.draw do
             get '/tag/:tag' => :by_tag
         end
     end
+    post '/login', action: :auth, controller: :login
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
