@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_01_215828) do
+ActiveRecord::Schema.define(version: 2019_06_02_004814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(version: 2019_06_01_215828) do
     t.bigint "tag_id", null: false
   end
 
+  create_table "seed_migration_data_migrations", id: :serial, force: :cascade do |t|
+    t.string "version"
+    t.integer "runtime"
+    t.datetime "migrated_on"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.string "parent"
@@ -80,6 +86,7 @@ ActiveRecord::Schema.define(version: 2019_06_01_215828) do
     t.string "university"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "quero_bolsa_user"
   end
 
   add_foreign_key "answers", "questions"
