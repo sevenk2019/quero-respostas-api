@@ -14,7 +14,8 @@ Rails.application.routes.draw do
     end
 
     get '/top_users', action: :top_users, controller: :users
-    get '/user_skills', action: :user_skills, controller: :users
+    get '/user_tags', action: :user_tags, controller: :tags
+    post '/user_tags', action: :create_user_tag, controller: :tags
 
     post '/login', action: :auth, controller: :login
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

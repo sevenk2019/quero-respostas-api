@@ -1,5 +1,6 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: [:show, :update, :destroy]
+  before_action :require_login, except: [:index, :show]
 
   # GET /tags
   def index
@@ -18,6 +19,25 @@ class TagsController < ApplicationController
     @tag = Tag.new(tag_params)
 
     if @tag.save
+      render json: @tag, status: :created, location: @tag
+    else
+      render json: @tag.errors, status: :unprocessable_entity
+    end
+  end
+
+  # GET /user_skills
+  def user_tags
+    skills = current_user.tags.select{ |tag| tag.kind == "skill" }
+    
+    render json: skills
+  end
+
+  # POST /user_skills
+  def create_user_tag
+    @tag = Tag.new(tag_params)
+
+    if @tag.save
+      current_user.tags << @tag
       render json: @tag, status: :created, location: @tag
     else
       render json: @tag.errors, status: :unprocessable_entity
@@ -46,6 +66,6 @@ class TagsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def tag_params
-      params.require(:tag).permit(:name, :parent)
+      params.require(:tag).permit(:name, :parent, :kind)
     end
 end

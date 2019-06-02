@@ -8,13 +8,6 @@ class UsersController < ApplicationController
     render json: @users
   end
 
-  # GET /user_skills
-  def user_skills
-    skills = current_user.tags.select{ |tag| tag.kind == "skill"  }
-    
-    render json: skills
-  end
-
   # GET /users
   def index
     @users = User.all
