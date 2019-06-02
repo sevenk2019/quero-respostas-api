@@ -16,9 +16,10 @@ class QuestionsController < ApplicationController
 
   # POST /questions
   def create
-    @question = Question.new(question_params)
+    @question = Question.new(question_params.except(:tags).merge(user_id: current_user.id))
 
     if @question.save
+      @question.tags = Tag.where(id: question_params["tags"])
       render json: @question, status: :created, location: @question
     else
       render json: @question.errors, status: :unprocessable_entity
@@ -47,6 +48,6 @@ class QuestionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def question_params
-      params.require(:question).permit(:user_id, :tag_id, :body, :title, :likes_count, :dislikes_count, :timestamps)
+      params.require(:question).permit(:user_id, :body, :title, :likes_count, :dislikes_count, :timestamps, tags: [])
     end
 end
