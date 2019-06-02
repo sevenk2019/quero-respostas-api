@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
-  before_action :require_login, except: [:index, :create]
+  before_action :require_login, except: [:index, :create, :top_users]
   before_action :set_user, only: [:show, :update, :destroy]
+
+  def top_users
+    @users = User.order(points: :desc).take(10)
+    render json: @users
+  end
 
   # GET /users
   def index
