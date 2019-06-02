@@ -7,12 +7,12 @@ class AnswersController < ApplicationController
   def index
     @answers = Answer.all
 
-    render json: @answers
+    render json: @answers.to_json(include: :user)
   end
 
   # GET /answers/1
   def show
-    render json: @answer
+    render json: @answer.to_json(include: :user)
   end
 
   # POST /answers
@@ -20,7 +20,7 @@ class AnswersController < ApplicationController
     @answer = Answer.new(answer_params.merge(user_id: current_user.id))
 
     if @answer.save
-      render json: @answer, status: :created, location: @answer
+      render json: @answer.to_json(include: :user), status: :created, location: @answer
     else
       render json: @answer.errors, status: :unprocessable_entity
     end
@@ -31,7 +31,7 @@ class AnswersController < ApplicationController
     if @answer.update(answer_params)
       publish(:answer_questions, current_user, current_user.answers.count)
       publish(:earn_likes, @question.user, @question.user.likes)
-      render json: @answer
+      render json: @answer.to_json(include: :user)
     else
       render json: @answer.errors, status: :unprocessable_entity
     end
