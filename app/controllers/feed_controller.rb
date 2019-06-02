@@ -42,8 +42,9 @@ class FeedController < ApplicationController
         @questions = prepare_questions(
             Question
                 .joins(:tags)
-                .where(tags: tags)
+                .where(tags: { id: tags })
         )
+        render_feed
     end
 
     private
