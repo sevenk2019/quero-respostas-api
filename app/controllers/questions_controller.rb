@@ -20,8 +20,25 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params.except(:tags).merge(user_id: current_user.id))
 
     if @question.save
-      @question.tags = Tag.where(name: question_params["tags"])
-      render json: @questions.to_json(
+      tags = []
+
+
+      question_params["tags"].each do |tag|
+        t = Tag.where(name: tag).last
+
+        unless t
+          t = Tag.create!(
+            name: tag,
+            kind: "subject",
+            parent: tag
+          )
+        end
+
+        tags << t
+      end
+
+      @question.tags = tags
+      render json: @question.to_json(
         include: [
             :user,
             :tags,
@@ -39,7 +56,7 @@ class QuestionsController < ApplicationController
       publish(:make_questions, current_user, current_user.questions.count)
       publish(:earn_likes, @question.user, @question.user.likes)
       # render json: @question
-      render json: @questions.to_json(
+      render json: @question.to_json(
           include: [
               :user,
               :tags,
