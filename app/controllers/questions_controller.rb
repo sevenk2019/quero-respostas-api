@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  include Wisper::Publisher
   before_action :require_login, except: [:index, :show]
   before_action :set_question, only: [:show, :update, :destroy]
 
@@ -29,6 +30,8 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   def update
     if @question.update(question_params)
+      publish(:make_questions, current_user, current_user.questions.count)
+      publish(:earn_likes, @question.user, @question.user.likes)
       render json: @question
     else
       render json: @question.errors, status: :unprocessable_entity

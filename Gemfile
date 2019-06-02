@@ -11,6 +11,7 @@ gem 'faker'
 gem 'jwt'
 gem 'seed_migration'
 gem 'rack-cors'
+gem 'wisper', '>=2.0.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
