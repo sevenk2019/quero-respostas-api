@@ -3,7 +3,7 @@ class LoginController < ApplicationController
     def auth
         @user = User.find_by(login_params)
         if @user
-            render json: { jwt: jwt_token(user: @user.id) }
+            render json: { jwt: Auth.new.encode(user: @user.id) }
         else
             render json: { error: "invalid email/password" }, status: '401'
         end
