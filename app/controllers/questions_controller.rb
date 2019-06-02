@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params.except(:tags).merge(user_id: current_user.id))
 
     if @question.save
-      @question.tags = Tag.where(id: question_params["tags"])
+      @question.tags = Tag.where(name: question_params["tags"])
       render json: @question, status: :created, location: @question
     else
       render json: @question.errors, status: :unprocessable_entity
