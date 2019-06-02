@@ -20,7 +20,23 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params.except(:tags).merge(user_id: current_user.id))
 
     if @question.save
-      @question.tags = Tag.where(name: question_params["tags"])
+      tags = []
+
+      question_params["tags"].each do |tag|
+        t = Tag.where(name: tag).last
+
+        unless t
+          t = Tag.create!(
+            name: tag,
+            kind: "subject",
+            parent: tag
+          )
+        end
+
+        tags << t
+      end
+
+      @question.tags = tags
       render json: @question.to_json(
         include: [
             :user,
