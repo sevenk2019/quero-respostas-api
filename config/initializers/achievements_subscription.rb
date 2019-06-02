@@ -1,2 +1,2 @@
-QuestionController.subscribe(AchievementsRegister.new)
-AnswerController.subscribe(AchievementsRegister.new)
+QuestionsController.subscribe(AchievementsRegister.new)
+AnswersController.subscribe(AchievementsRegister.new)

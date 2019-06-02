@@ -7,6 +7,6 @@ class User < ApplicationRecord
     has_many :answers
 
     def likes
-        questions.count + answers.count
+        questions.map(&:likes_count).sum + answers.map(&:likes_count).sum
     end
 end
