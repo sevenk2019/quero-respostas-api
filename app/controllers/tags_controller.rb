@@ -32,11 +32,12 @@ class TagsController < ApplicationController
     end
   end
 
-  # GET /user_skills
+  # GET /user_tags
   def user_tags
     skills = current_user.tags.select{ |tag| tag.kind == "skill" }
-    
-    render json: skills
+    user = { user: current_user.as_json.merge({ skills: skills}) }
+
+    render json: skills.to_json(include: user)
   end
 
   # POST /user_skills
