@@ -37,10 +37,14 @@ class FeedController < ApplicationController
         end
     end
 
-    #  GET /feed/owned
-    def from_user
-        @questions =
-            prepare_questions(Question.where(user_id: current_user.id))
+    #  GET /feed/following
+    def following
+        tags = current_user.tags
+        @questions = prepare_questions(
+            Question
+                .joins(:tags)
+                .where(tags: tags)
+        )
     end
 
     private
