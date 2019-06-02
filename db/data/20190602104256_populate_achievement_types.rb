@@ -1,5 +1,5 @@
 class PopulateAchievementTypes < SeedMigration::Migration
-  @types = [
+  TYPES = [
     "100 likes",
     "200 likes",
     "500 likes",
@@ -14,12 +14,12 @@ class PopulateAchievementTypes < SeedMigration::Migration
     "1000 answers"
   ]
   def up
-    types.each do |type|
+    TYPES.each do |type|
       AchievementType.create(name: type)
     end
   end
 
   def down
-    AchievementType.where(name: @types).destroy!
+    AchievementType.where(name: TYPES).destroy!
   end
 end
