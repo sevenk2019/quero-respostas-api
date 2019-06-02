@@ -21,7 +21,13 @@ class QuestionsController < ApplicationController
 
     if @question.save
       @question.tags = Tag.where(name: question_params["tags"])
-      render json: @question, status: :created, location: @question
+      render json: @questions.to_json(
+        include: [
+            :user,
+            :tags,
+            :answers => { include: :user }
+        ]
+    ), status: :created, location: @question
     else
       render json: @question.errors, status: :unprocessable_entity
     end
@@ -32,7 +38,14 @@ class QuestionsController < ApplicationController
     if @question.update(question_params)
       publish(:make_questions, current_user, current_user.questions.count)
       publish(:earn_likes, @question.user, @question.user.likes)
-      render json: @question
+      # render json: @question
+      render json: @questions.to_json(
+          include: [
+              :user,
+              :tags,
+              :answers => { include: :user }
+          ]
+      )
     else
       render json: @question.errors, status: :unprocessable_entity
     end
