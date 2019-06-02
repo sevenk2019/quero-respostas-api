@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         end
     end
 
+    get '/top_tags', action: :top_tags, controller: :tags
     get '/top_users', action: :top_users, controller: :users
     get '/user_tags', action: :user_tags, controller: :tags
     post '/user_tags', action: :create_user_tag, controller: :tags

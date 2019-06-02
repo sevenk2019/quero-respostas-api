@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: [:show, :update, :destroy]
-  before_action :require_login, except: [:index, :show]
+  before_action :require_login, except: [:index, :show, :top_tags]
 
   # GET /tags
   def index
@@ -12,6 +12,13 @@ class TagsController < ApplicationController
   # GET /tags/1
   def show
     render json: @tag
+  end
+
+  # Get /top_tags
+  def top_tags
+    top_tags = Tag.left_joins(:questions).group(:id).order('COUNT(tags.id) DESC').limit(10)
+
+    render json: top_tags
   end
 
   # POST /tags
