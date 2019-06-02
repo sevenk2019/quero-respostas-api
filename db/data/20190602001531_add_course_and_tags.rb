@@ -198,16 +198,16 @@ class AddCourseAndTags < SeedMigration::Migration
       )
   
       c["subjects"].each do |tag|
-        tag = Tag.where(name: c["area"]).last
+        tag_obj = Tag.where(name: c["area"]).last
 
-        unless tag
-          tag = Tag.create!(
-              name: tag,
+        unless tag_obj
+          tag_obj = Tag.create!(
+              name: tag,  
               parent: c["area"]
           )
         end
 
-        course.tags << tag
+        course.tags << tag_obj
       end
     end
   end
