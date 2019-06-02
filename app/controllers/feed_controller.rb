@@ -4,6 +4,7 @@ class FeedController < ApplicationController
         @questions = Question
             .eager_load(:answers)
             .eager_load(:user)
+            .eager_load(:tags)
             .order(created_at: :desc)
             .first(20)
 
@@ -16,6 +17,7 @@ class FeedController < ApplicationController
             .joins(:tags).where(tags: { id: params[:id] })
             .eager_load(:answers)
             .eager_load(:user)
+            .eager_load(:tags)
             .order(created_at: :desc)
             .first(20)
 
@@ -33,6 +35,7 @@ class FeedController < ApplicationController
                 .where(tags: { id: course.tags })
                 .eager_load(:answers)
                 .eager_load(:user)
+                .eager_load(:tags)
                 .order(created_at: :desc)
                 .first(20)
 
@@ -50,6 +53,7 @@ class FeedController < ApplicationController
             render json: @questions.to_json(
                 include: [
                     :user,
+                    :tags,
                     :answers => { include: :user }
                 ]
             )
