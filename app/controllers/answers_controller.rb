@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  before_action :require_login, except: [:index, :show]
   before_action :set_answer, only: [:show, :update, :destroy]
 
   # GET /answers

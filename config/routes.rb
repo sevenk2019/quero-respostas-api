@@ -7,7 +7,8 @@ Rails.application.routes.draw do
     scope :feed do
         controller :feed do
             get '/' => :index
-            get '/tag/:tag' => :by_tag
+            get '/tag/:id' => :by_tag
+            get '/course/:id' => :by_course
         end
     end
     post '/login', action: :auth, controller: :login

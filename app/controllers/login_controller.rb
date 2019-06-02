@@ -7,7 +7,7 @@ class LoginController < ApplicationController
             response.set_header('Authorization', "Bearer #{token}")
             render json: { jwt: token }
         else
-            render json: { error: "invalid email/password" }, status: '401'
+            render json: { error: "invalid email/password" }, status: 401
         end
     end
 
