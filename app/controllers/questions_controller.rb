@@ -22,7 +22,6 @@ class QuestionsController < ApplicationController
     if @question.save
       tags = []
 
-
       question_params["tags"].each do |tag|
         t = Tag.where(name: tag).last
 
@@ -55,7 +54,6 @@ class QuestionsController < ApplicationController
     if @question.update(question_params)
       publish(:make_questions, current_user, current_user.questions.count)
       publish(:earn_likes, @question.user, @question.user.likes)
-      # render json: @question
       render json: @question.to_json(
           include: [
               :user,
