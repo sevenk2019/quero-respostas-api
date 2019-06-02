@@ -10,6 +10,10 @@ class ApplicationController < ActionController::API
         current_user.present?
     end
 
+    def require_login
+        render json: { error: 'unauthorized' }, status: 401 unless logged_id?
+    end
+
     def token
         request
             .env['HTTP_AUTHORIZATION']
